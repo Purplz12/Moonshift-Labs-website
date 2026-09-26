@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Moonshift Labs</title>
+
+    <style>
+        @font-face {
+            font-family: "EasVHS";
+            src: url("eas-vhs.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #09090b;
+            color: #e8e8e8;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.035;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    #ffffff 3px
+                );
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 68px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            background: rgba(9, 9, 11, 0.92);
+            border-bottom: 1px solid #202024;
+
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: "EasVHS", monospace;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #8c7cff;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        nav ul li a {
+            font-family: "EasVHS", monospace;
+            font-size: 15px;
+            color: #85858d;
+            transition: 0.2s;
+        }
+
+        nav ul li a:hover {
+            color: #ffffff;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            padding: 100px 20px 70px;
+
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+            width: 500px;
+            height: 500px;
+
+            left: 50%;
+            top: 45%;
+
+            transform: translate(-50%, -50%);
+
+            background: #5144b8;
+            opacity: 0.09;
+
+            filter: blur(120px);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .small-text {
+            font-family: "EasVHS", monospace;
+            font-size: 14px;
+            color: #777780;
+            margin-bottom: 18px;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-family: "EasVHS", monospace;
+            font-size: clamp(55px, 10vw, 115px);
+            line-height: 0.9;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 span {
+            color: #8c7cff;
+        }
+
+        .hero-description {
+            max-width: 620px;
+            margin: auto;
+
+            font-size: 18px;
+            line-height: 1.7;
+
+            color: #94949d;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+
+            margin-top: 32px;
+
+            flex-wrap: wrap;
+        }
+
+        .button {
+            font-family: "EasVHS", monospace;
+            font-size: 15px;
+
+            padding: 13px 20px;
+
+            border: 1px solid #35313f;
+            background: #17151e;
+
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            background: #24202f;
+            border-color: #6f61ad;
+            transform: translateY(-2px);
+        }
+
+        .button.primary {
+            background: #8172e7;
+            border-color: #8172e7;
+            color: #ffffff;
+        }
+
+        .button.primary:hover {
+            background: #9183f0;
+        }
+
+        /* =========================
+           GENERAL SECTIONS
+        ========================= */
+
+        section {
+            padding: 110px 7%;
+        }
+
+        .section-heading {
+            max-width: 1100px;
+            margin: 0 auto 45px;
+        }
+
+        .section-label {
+            font-family: "EasVHS", monospace;
+            color: #8172e7;
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .section-heading h2 {
+            font-family: "EasVHS", monospace;
+            font-weight: normal;
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .section-heading p {
+            color: #777780;
+            max-width: 650px;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about-container {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: #9b9ba4;
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-note {
+            border-left: 2px solid #6255a8;
+            padding: 25px;
+
+            background: #101013;
+            border-top: 1px solid #202026;
+            border-right: 1px solid #202026;
+            border-bottom: 1px solid #202026;
+        }
+
+        .about-note h3 {
+            font-family: "EasVHS", monospace;
+            font-weight: normal;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .about-note p {
+            color: #777780;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           WHAT WE DO
+        ========================= */
+
+        .services {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .service {
+            padding: 28px;
+
+            background: #101013;
+            border: 1px solid #202024;
+
+            transition: 0.25s;
+        }
+
+        .service:hover {
+            border-color: #4b426d;
+            transform: translateY(-4px);
+        }
+
+        .service-number {
+            font-family: "EasVHS", monospace;
+            color: #6255a8;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .service h3 {
+            font-family: "EasVHS", monospace;
+            font-weight: normal;
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .service p {
+            color: #777780;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           PROJECTS
+        ========================= */
+
+        .projects {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .project {
+            min-height: 285px;
+
+            padding: 30px;
+
+            position: relative;
+            overflow: hidden;
+
+            background: #101013;
+            border: 1px solid #24242a;
+
+            transition: 0.25s;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            border-color: #554b7c;
+        }
+
+        .project::before {
+            content: "";
+
+            position: absolute;
+            width: 170px;
+            height: 170px;
+
+            right: -90px;
+            bottom: -90px;
+
+            border-radius: 50%;
+
+            background: #7465df;
+            opacity: 0.08;
+
+            filter: blur(35px);
+        }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+        .project-number {
+            font-family: "EasVHS", monospace;
+            color: #4f4f57;
+            font-size: 14px;
+        }
+
+        .project-status {
+            font-family: "EasVHS", monospace;
+            font-size: 12px;
+
+            padding: 5px 8px;
+
+            border: 1px solid #302c3c;
+            color: #8476c9;
+        }
+
+        .project h3 {
+            position: relative;
+
+            font-family: "EasVHS", monospace;
+            font-weight: normal;
+
+            font-size: 31px;
+            margin-bottom: 12px;
+        }
+
+        .project-type {
+            font-size: 12px;
+            color: #696971;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            margin-bottom: 17px;
+        }
+
+        .project p {
+            position: relative;
+
+            max-width: 500px;
+
+            color: #85858e;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           CONTACT
+        ========================= */
+
+        .contact {
+            padding-bottom: 130px;
+        }
+
+        .contact-box {
+            max-width: 1100px;
+            margin: auto;
+
+            padding: 55px;
+
+            background: #101013;
+            border: 1px solid #24242a;
+
+            text-align: center;
+        }
+
+        .contact-box h2 {
+            font-family: "EasVHS", monospace;
+            font-size: 42px;
+            font-weight: normal;
+
+            margin-bottom: 14px;
+        }
+
+        .contact-box p {
+            max-width: 600px;
+            margin: auto;
+
+            color: #7d7d86;
+            line-height: 1.7;
+        }
+
+        .support-email {
+            display: inline-block;
+
+            margin-top: 28px;
+
+            font-family: "EasVHS", monospace;
+            font-size: 18px;
+
+            color: #a095ee;
+
+            padding: 13px 18px;
+
+            border: 1px solid #383151;
+            background: #16141d;
+
+            transition: 0.2s;
+        }
+
+        .support-email:hover {
+            background: #201d2a;
+            border-color: #685ba1;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top: 1px solid #1e1e23;
+
+            padding: 30px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            color: #57575e;
+            font-size: 13px;
+        }
+
+        .footer-logo {
+            font-family: "EasVHS", monospace;
+            color: #777780;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            nav {
+                padding: 0 5%;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            section {
+                padding: 85px 5%;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: clamp(50px, 15vw, 90px);
+            }
+
+            .contact-box {
+                padding: 40px 20px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .hero {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .section-heading h2 {
+                font-size: 34px;
+            }
+
+            .project {
+                min-height: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav>
+
+        <a href="#" class="logo">
+            MOONSHIFT <span>LABS</span>
+        </a>
+
+        <ul>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#what-we-do">WHAT WE DO</a></li>
+            <li><a href="#projects">PROJECTS</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="small-text">
+                INDEPENDENT GAME DEVELOPMENT
+            </div>
+
+            <h1>
+                MOONSHIFT<br>
+                <span>LABS</span>
+            </h1>
+
+            <p class="hero-description">
+                We make games, mess around with ideas, and see what happens.
+                Moonshift Labs is an independent studio focused on making
+                games we actually want to play.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#projects" class="button primary">
+                    SEE OUR PROJECTS
+                </a>
+
+                <a href="#contact" class="button">
+                    CONTACT US
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================= -->
+
+    <section id="about">
+
+        <div class="section-heading">
+
+            <div class="section-label">
+                // ABOUT
+            </div>
+
+            <h2>
+                WHO IS MOONSHIFT?
+            </h2>
+
+            <p>
+                A small independent game studio working on a bunch of
+                strange ideas.
+            </p>
+
+        </div>
+
+        <div class="about-container">
+
+            <div class="about-text">
+
+                <p>
+                    Moonshift Labs is an independent game development studio.
+                    We make games across different genres, with a particular
+                    interest in VR, multiplayer experiences, horror, and
+                    weird experimental concepts.
+                </p>
+
+                <p>
+                    Some projects start as a random idea and turn into
+                    something much bigger. Others are made simply because
+                    they sounded fun. Either way, we're here to make games
+                    that have their own personality.
+                </p>
+
+            </div>
+
+            <div class="about-note">
+
+                <h3>
+                    MADE IN THE LAB
+                </h3>
+
+                <p>
+                    Game development, 3D art, environments, multiplayer
+                    systems, VR mechanics, monsters, and whatever else
+                    a project ends up needing.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         WHAT WE DO
+    ========================= -->
+
+    <section id="what-we-do">
+
+        <div class="section-heading">
+
+            <div class="section-label">
+                // WHAT WE DO
+            </div>
+
+            <h2>
+                BUILDING GAMES
+            </h2>
+
+            <p>
+                There's no single type of game we stick to.
+            </p>
+
+        </div>
+
+        <div class="services">
+
+            <div class="service">
+
+                <div class="service-number">
+                    01 / GAME DEVELOPMENT
+                </div>
+
+                <h3>
+                    GAMES
+                </h3>
+
+                <p>
+                    We design and build our own games from the ground up,
+                    from the first weird idea to the finished experience.
+                </p>
+
+            </div>
+
+
+            <div class="service">
+
+                <div class="service-number">
+                    02 / VIRTUAL REALITY
+                </div>
+
+                <h3>
+                    VR
+                </h3>
+
+                <p>
+                    A lot of our projects experiment with VR movement,
+                    interaction, multiplayer, and physics-based gameplay.
+                </p>
+
+            </div>
+
+
+            <div class="service">
+
+                <div class="service-number">
+                    03 / EXPERIMENTAL
+                </div>
+
+                <h3>
+                    WEIRD STUFF
+                </h3>
+
+                <p>
+                    Strange mechanics, unusual environments, ridiculous
+                    ideas, and projects that don't fit neatly into a genre.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PROJECTS
+    ========================= -->
+
+    <section id="projects">
+
+        <div class="section-heading">
+
+            <div class="section-label">
+                // PROJECTS
+            </div>
+
+            <h2>
+                CURRENT PROJECTS
+            </h2>
+
+            <p>
+                A few things currently being worked on around the lab.
+            </p>
+
+        </div>
+
+        <div class="projects">
+
+
+            <!-- STINKY HORROR MONKES -->
+
+            <div class="project">
+
+                <div class="project-top">
+
+                    <div class="project-number">
+                        PROJECT 01
+                    </div>
+
+                    <div class="project-status">
+                        IN DEVELOPMENT
+                    </div>
+
+                </div>
+
+                <div class="project-type">
+                    VR / HORROR / MULTIPLAYER
+                </div>
+
+                <h3>
+                    STINKY HORROR MONKES
+                </h3>
+
+                <p>
+                    A multiplayer VR horror game built around strange
+                    environments, monsters, exploration, and a bunch of
+                    very questionable monkeys.
+                </p>
+
+            </div>
+
+
+            <!-- EYE GAME -->
+
+            <div class="project">
+
+                <div class="project-top">
+
+                    <div class="project-number">
+                        PROJECT 02
+                    </div>
+
+                    <div class="project-status">
+                        IN DEVELOPMENT
+                    </div>
+
+                </div>
+
+                <div class="project-type">
+                    VR / EXPLORATION / HORROR
+                </div>
+
+                <h3>
+                    EYE GAME
+                </h3>
+
+                <p>
+                    Explore strange locations, collect scrap, uncover
+                    what happened, and deal with the things that aren't
+                    supposed to be there.
+                </p>
+
+            </div>
+
+
+            <!-- FUNNY GORILLA GAME -->
+
+            <div class="project">
+
+                <div class="project-top">
+
+                    <div class="project-number">
+                        PROJECT 03
+                    </div>
+
+                    <div class="project-status">
+                        IN DEVELOPMENT
+                    </div>
+
+                </div>
+
+                <div class="project-type">
+                    VR / MULTIPLAYER / CHAOS
+                </div>
+
+                <h3>
+                    FUNNY GORILLA GAME
+                </h3>
+
+                <p>
+                    A multiplayer VR game inspired by the chaotic
+                    2023–2024 era of gorilla-style fangames, with
+                    different modes and plenty of room for things
+                    to go wrong.
+                </p>
+
+            </div>
+
+
+            <!-- SCRAPHEAD -->
+
+            <div class="project">
+
+                <div class="project-top">
+
+                    <div class="project-number">
+                        PROJECT 04
+                    </div>
+
+                    <div class="project-status">
+                        IN DEVELOPMENT
+                    </div>
+
+                </div>
+
+                <div class="project-type">
+                    VR / HORROR / SURVIVAL
+                </div>
+
+                <h3>
+                    SCRAPHEAD
+                </h3>
+
+                <p>
+                    Collect scrap while exploring dangerous places.
+                    What started as a project for experimenting with
+                    Substance Painter is becoming its own game.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTACT
+    ========================= -->
+
+    <section id="contact" class="contact">
+
+        <div class="contact-box">
+
+            <div class="section-label">
+                // CONTACT
+            </div>
+
+            <h2>
+                GOT A QUESTION?
+            </h2>
+
+            <p>
+                For support, questions, bug reports, or anything else
+                you'd like to send our way, you can reach Moonshift Labs
+                through our support email.
+            </p>
+
+            <a
+                href="mailto:moonshiftlabs@gmail.com"
+                class="support-email"
+            >
+                moonshiftlabs@gmail.com
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <div class="footer-logo">
+            MOONSHIFT LABS
+        </div>
+
+        <div>
+            © 2026 Moonshift Labs
+        </div>
+
+    </footer>
+
+</body>
+</html>
